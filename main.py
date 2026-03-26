@@ -17,24 +17,28 @@ st.set_page_config(
 # ── CSS ───────────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@300;400;600;700&family=Noto+Sans+KR:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;700&display=swap');
 
 :root {
-    --bg:        #070d12;
-    --bg2:       #0d1821;
-    --bg3:       #111f2e;
-    --accent:    #00ff88;
-    --accent2:   #00c4ff;
-    --accent3:   #ff4d6d;
-    --text:      #c8d6e5;
-    --text-dim:  #5e7a96;
-    --border:    #1a3a55;
-    --glow:      0 0 18px rgba(0,255,136,0.25);
-    --glow2:     0 0 18px rgba(0,196,255,0.2);
+    --bg:        #F8F6F1;
+    --bg2:       #FFFFFF;
+    --bg3:       #F2EFE9;
+    --gold:      #B8933F;
+    --gold-lt:   #D4AF6A;
+    --gold-dk:   #8A6A28;
+    --accent-up: #2E7D52;
+    --accent-dn: #C0392B;
+    --text:      #1C1810;
+    --text-mid:  #5C5040;
+    --text-dim:  #9E8E78;
+    --border:    #DDD5C4;
+    --border-lt: #EDE8DF;
+    --shadow:    0 2px 16px rgba(184,147,63,0.10);
+    --shadow-lg: 0 6px 32px rgba(184,147,63,0.14);
 }
 
 html, body, [class*="css"] {
-    font-family: 'Rajdhani', 'Noto Sans KR', sans-serif;
+    font-family: 'DM Sans', 'Noto Sans KR', sans-serif;
     background-color: var(--bg) !important;
     color: var(--text);
 }
@@ -46,104 +50,105 @@ html, body, [class*="css"] {
 /* ── Header ── */
 .site-header {
     display: flex;
-    align-items: baseline;
-    gap: 16px;
-    padding: 0.6rem 0 1.6rem;
+    align-items: center;
+    gap: 18px;
+    padding: 1rem 0 1.6rem;
     border-bottom: 1px solid var(--border);
-    margin-bottom: 1.6rem;
+    margin-bottom: 1.8rem;
 }
 .site-logo {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 1.75rem;
-    color: var(--accent);
-    letter-spacing: 4px;
-    text-shadow: var(--glow);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold-dk);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+}
+.site-logo span {
+    color: var(--gold);
 }
 .site-sub {
-    font-size: 0.9rem;
+    font-size: 0.78rem;
     color: var(--text-dim);
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     text-transform: uppercase;
+    font-weight: 400;
+    border-left: 1px solid var(--border);
+    padding-left: 18px;
 }
 .live-dot {
     display: inline-block;
-    width: 7px; height: 7px;
+    width: 6px; height: 6px;
     border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 8px var(--accent);
-    animation: blink 1.4s infinite;
+    background: var(--gold);
+    box-shadow: 0 0 6px var(--gold-lt);
+    animation: blink 2s infinite;
     margin-left: 6px;
     vertical-align: middle;
 }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
 
 /* ── Metric cards ── */
-.metric-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-    gap: 12px;
-    margin-bottom: 1.5rem;
-}
 .metric-card {
     background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px 16px;
+    border: 1px solid var(--border-lt);
+    border-top: 3px solid var(--gold);
+    border-radius: 6px;
+    padding: 16px 18px;
     position: relative;
     overflow: hidden;
-    transition: border-color .2s;
+    box-shadow: var(--shadow);
+    transition: box-shadow .2s, transform .2s;
 }
-.metric-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px; height: 100%;
-    background: var(--accent);
+.metric-card.us  { border-top-color: var(--gold-lt); }
+.metric-card.neg { border-top-color: var(--accent-dn); }
+.metric-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
 }
-.metric-card.us::before  { background: var(--accent2); }
-.metric-card.neg::before { background: var(--accent3); }
-.metric-card:hover { border-color: var(--accent); }
 
 .mc-ticker {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.75rem;
+    font-size: 0.68rem;
     color: var(--text-dim);
     letter-spacing: 2px;
-    margin-bottom: 4px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    font-weight: 500;
 }
 .mc-price {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #fff;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.55rem;
+    font-weight: 600;
+    color: var(--text);
     line-height: 1.1;
 }
 .mc-change {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 600;
-    margin-top: 4px;
+    margin-top: 5px;
 }
 .mc-name {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     color: var(--text-dim);
     margin-top: 6px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.pos { color: var(--accent); }
-.neg { color: var(--accent3); }
+.pos { color: var(--accent-up); }
+.neg { color: var(--accent-dn); }
 .neu { color: var(--text-dim); }
 
 /* ── Section labels ── */
 .section-label {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: var(--text-dim);
-    border-left: 3px solid var(--accent);
+    color: var(--gold-dk);
+    font-weight: 600;
+    border-left: 3px solid var(--gold);
     padding-left: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 
 /* ── Sidebar ── */
@@ -155,52 +160,59 @@ section[data-testid="stSidebar"] .stSelectbox label,
 section[data-testid="stSidebar"] .stMultiSelect label,
 section[data-testid="stSidebar"] .stRadio label {
     color: var(--text) !important;
-    font-weight: 600;
-    letter-spacing: 1px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+section[data-testid="stSidebar"] h3 {
+    color: var(--gold-dk) !important;
+    font-family: 'Cormorant Garamond', serif;
 }
 
 /* ── Table ── */
 .return-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.88rem;
+    font-size: 0.86rem;
 }
 .return-table th {
     background: var(--bg3);
     color: var(--text-dim);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     letter-spacing: 2px;
-    padding: 8px 12px;
+    text-transform: uppercase;
+    padding: 10px 14px;
     text-align: right;
     border-bottom: 1px solid var(--border);
+    font-weight: 600;
 }
 .return-table th:first-child { text-align: left; }
 .return-table td {
-    padding: 8px 12px;
-    border-bottom: 1px solid rgba(26,58,85,0.5);
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border-lt);
     color: var(--text);
     text-align: right;
 }
-.return-table td:first-child { text-align: left; font-weight: 600; }
-.return-table tr:hover td { background: rgba(255,255,255,0.03); }
+.return-table td:first-child { text-align: left; font-weight: 600; color: var(--text); }
+.return-table tr:hover td { background: #FBF8F3; }
 
 /* ── Plotly container ── */
 .chart-wrap {
     background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
+    border: 1px solid var(--border-lt);
+    border-radius: 8px;
     padding: 4px;
     margin-bottom: 1rem;
+    box-shadow: var(--shadow);
 }
 
 /* ── Scrollable table wrapper ── */
 .table-scroll {
     overflow-x: auto;
     background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
+    border: 1px solid var(--border-lt);
+    border-radius: 8px;
     padding: 4px 0;
+    box-shadow: var(--shadow);
 }
 </style>
 """, unsafe_allow_html=True)
@@ -361,7 +373,7 @@ with st.sidebar:
 
     st.markdown("---")
     st.markdown(
-        "<small style='color:#5e7a96'>데이터: Yahoo Finance · yfinance<br>5분마다 자동 갱신</small>",
+        "<small style='color:#9E8E78'>데이터: Yahoo Finance · yfinance<br>5분마다 자동 갱신</small>",
         unsafe_allow_html=True,
     )
 
@@ -369,9 +381,9 @@ with st.sidebar:
 now_str = datetime.now().strftime("%Y.%m.%d  %H:%M")
 st.markdown(f"""
 <div class="site-header">
-  <span class="site-logo">MARKET LENS</span>
+  <span class="site-logo">Market<span>·</span>Lens</span>
   <span class="site-sub">글로벌 주식 비교 대시보드</span>
-  <span style="margin-left:auto;font-family:'Share Tech Mono',monospace;font-size:0.78rem;color:#5e7a96">
+  <span style="margin-left:auto;font-size:0.75rem;color:#9E8E78;letter-spacing:1px;">
     {now_str}<span class="live-dot"></span>
   </span>
 </div>
@@ -429,23 +441,24 @@ if not price_data:
 
 # ── Plotly theme helper ───────────────────────────────────────────────────────
 PLOTLY_LAYOUT = dict(
-    paper_bgcolor="#0d1821",
-    plot_bgcolor="#070d12",
-    font=dict(family="Rajdhani, Noto Sans KR, sans-serif", color="#c8d6e5", size=12),
-    legend=dict(bgcolor="#0d1821", bordercolor="#1a3a55", borderwidth=1,
+    paper_bgcolor="#FFFFFF",
+    plot_bgcolor="#FDFBF8",
+    font=dict(family="DM Sans, Noto Sans KR, sans-serif", color="#1C1810", size=12),
+    legend=dict(bgcolor="#FFFFFF", bordercolor="#DDD5C4", borderwidth=1,
                 font=dict(size=11)),
     hovermode="x unified",
-    margin=dict(l=12, r=12, t=36, b=12),
+    margin=dict(l=12, r=12, t=40, b=12),
 )
 
-AXIS_STYLE = dict(gridcolor="#1a3a55", showgrid=True, zeroline=False)
-XAXIS_STYLE = dict(gridcolor="#1a3a55", showgrid=True, zeroline=False,
-                   rangeslider_visible=False)
+AXIS_STYLE = dict(gridcolor="#EDE8DF", showgrid=True, zeroline=False,
+                  linecolor="#DDD5C4", linewidth=1)
+XAXIS_STYLE = dict(gridcolor="#EDE8DF", showgrid=True, zeroline=False,
+                   linecolor="#DDD5C4", linewidth=1, rangeslider_visible=False)
 
-KR_COLORS = ["#00ff88","#00e07a","#00c06a","#00a05a","#00805a",
-             "#00604a","#00403a","#00202a"]
-US_COLORS = ["#00c4ff","#00aaee","#0090dd","#0076cc","#005cbb",
-             "#0042aa","#002899","#000e88"]
+KR_COLORS = ["#B8933F","#C8A84E","#9A7B30","#D4AF6A","#7A6020",
+             "#E0C080","#6A5010","#F0D090"]
+US_COLORS = ["#3A6B9F","#4D8FCC","#2A5080","#6AA8D8","#1A3A60",
+             "#88C0E8","#0A2A40","#A0D0F0"]
 
 
 def get_color(name, mkt):
@@ -481,10 +494,10 @@ if chart_type == "수익률 비교 (정규화)":
             hovertemplate=f"<b>{name}</b><br>%{{x|%Y-%m-%d}}<br>수익률: %{{y:.2f}}%<extra></extra>",
         ))
 
-    fig.add_hline(y=0, line_dash="dot", line_color="#5e7a96", line_width=1)
+    fig.add_hline(y=0, line_dash="dot", line_color="#B8933F", line_width=1.2)
     fig.update_layout(
         **PLOTLY_LAYOUT,
-        title=dict(text=f"수익률 비교 (기준=0%, {period_label})", font=dict(size=14, color="#00ff88")),
+        title=dict(text=f"수익률 비교 (기준=0%, {period_label})", font=dict(size=14, color="#8A6A28")),
         height=480,
     )
     fig.update_xaxes(**XAXIS_STYLE)
@@ -526,14 +539,14 @@ elif chart_type == "가격 추이":
 
     fig.update_layout(
         **PLOTLY_LAYOUT,
-        title=dict(text=f"가격 추이 ({period_label}) | 🇰🇷 좌축(₩)  🇺🇸 우축($)", font=dict(size=14, color="#00c4ff")),
+        title=dict(text=f"가격 추이 ({period_label}) | 🇰🇷 좌축(₩)  🇺🇸 우축($)", font=dict(size=14, color="#3A6B9F")),
         height=480,
     )
     fig.update_xaxes(**XAXIS_STYLE)
     fig.update_yaxes(title_text="KRW (₩)", secondary_y=False,
-                     gridcolor="#1a3a55", showgrid=True, zeroline=False)
+                     gridcolor="#EDE8DF", showgrid=True, zeroline=False)
     fig.update_yaxes(title_text="USD ($)", secondary_y=True,
-                     gridcolor="#1a3a55", showgrid=False, zeroline=False)
+                     gridcolor="#EDE8DF", showgrid=False, zeroline=False)
     st.markdown('<div class="chart-wrap">', unsafe_allow_html=True)
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("</div>", unsafe_allow_html=True)
@@ -564,13 +577,13 @@ elif chart_type == "캔들차트 (단일 종목)":
             x=ohlcv.index,
             open=ohlcv["Open"], high=ohlcv["High"],
             low=ohlcv["Low"],   close=ohlcv["Close"],
-            increasing_line_color="#00ff88",
-            decreasing_line_color="#ff4d6d",
+            increasing_line_color="#2E7D52",
+            decreasing_line_color="#C0392B",
             name=candle_target,
         ), row=1, col=1)
 
         if show_ma and len(ohlcv) >= 20:
-            for w, c in [(20, "#ffcc00"), (60, "#ff7700")]:
+            for w, c in [(20, "#B8933F"), (60, "#3A6B9F")]:
                 if len(ohlcv) >= w:
                     ma = ohlcv["Close"].rolling(w).mean()
                     fig.add_trace(go.Scatter(
@@ -581,7 +594,7 @@ elif chart_type == "캔들차트 (단일 종목)":
 
         if show_volume and "Volume" in ohlcv.columns:
             vol_colors = [
-                "#00ff88" if ohlcv["Close"].iloc[i] >= ohlcv["Open"].iloc[i] else "#ff4d6d"
+                "#2E7D52" if ohlcv["Close"].iloc[i] >= ohlcv["Open"].iloc[i] else "#C0392B"
                 for i in range(len(ohlcv))
             ]
             fig.add_trace(go.Bar(
@@ -594,9 +607,9 @@ elif chart_type == "캔들차트 (단일 종목)":
             title=dict(text=f"{candle_target} ({ticker}) 캔들차트 — {period_label}", font=dict(size=14, color=color)),
             height=520,
         )
-        fig.update_xaxes(gridcolor="#1a3a55", showgrid=True, zeroline=False,
+        fig.update_xaxes(gridcolor="#EDE8DF", showgrid=True, zeroline=False,
                          rangeslider_visible=False)
-        fig.update_yaxes(gridcolor="#1a3a55", showgrid=True, zeroline=False)
+        fig.update_yaxes(gridcolor="#EDE8DF", showgrid=True, zeroline=False)
         st.markdown('<div class="chart-wrap">', unsafe_allow_html=True)
         st.plotly_chart(fig, use_container_width=True)
         st.markdown("</div>", unsafe_allow_html=True)
@@ -673,9 +686,9 @@ if len(price_data) >= 2:
         labels = corr.columns.tolist()
 
         colorscale = [
-            [0.0,  "#ff4d6d"],
-            [0.5,  "#0d1821"],
-            [1.0,  "#00ff88"],
+            [0.0,  "#C0392B"],
+            [0.5,  "#F8F6F1"],
+            [1.0,  "#B8933F"],
         ]
         fig_corr = go.Figure(go.Heatmap(
             z=corr.values,
@@ -689,22 +702,22 @@ if len(price_data) >= 2:
         ))
         fig_corr.update_layout(
             **PLOTLY_LAYOUT,
-            title=dict(text="일별 수익률 상관계수", font=dict(size=14, color="#00c4ff")),
+            title=dict(text="일별 수익률 상관계수", font=dict(size=14, color="#8A6A28")),
             height=max(320, 60 * len(labels)),
         )
         fig_corr.update_xaxes(side="bottom", tickfont=dict(size=10),
-                              gridcolor="#1a3a55", showgrid=False, zeroline=False)
+                              gridcolor="#EDE8DF", showgrid=False, zeroline=False)
         fig_corr.update_yaxes(autorange="reversed", tickfont=dict(size=10),
-                              gridcolor="#1a3a55", showgrid=False, zeroline=False)
+                              gridcolor="#EDE8DF", showgrid=False, zeroline=False)
         st.markdown('<div class="chart-wrap">', unsafe_allow_html=True)
         st.plotly_chart(fig_corr, use_container_width=True)
         st.markdown("</div>", unsafe_allow_html=True)
 
 # ── Footer ────────────────────────────────────────────────────────────────────
 st.markdown("""
-<div style="margin-top:2.5rem;padding-top:1rem;border-top:1px solid #1a3a55;
-            text-align:center;font-size:0.75rem;color:#5e7a96;letter-spacing:1px;">
-  MARKET LENS &nbsp;·&nbsp; Data by Yahoo Finance &nbsp;·&nbsp;
+<div style="margin-top:2.5rem;padding-top:1rem;border-top:1px solid #DDD5C4;
+            text-align:center;font-size:0.75rem;color:#9E8E78;letter-spacing:1px;">
+  Market·Lens &nbsp;·&nbsp; Data by Yahoo Finance &nbsp;·&nbsp;
   투자 참고용이며 투자 권유가 아닙니다
 </div>
 """, unsafe_allow_html=True)
