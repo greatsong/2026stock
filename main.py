@@ -432,14 +432,15 @@ PLOTLY_LAYOUT = dict(
     paper_bgcolor="#0d1821",
     plot_bgcolor="#070d12",
     font=dict(family="Rajdhani, Noto Sans KR, sans-serif", color="#c8d6e5", size=12),
-    xaxis=dict(gridcolor="#1a3a55", showgrid=True, zeroline=False,
-               rangeslider=dict(visible=False)),
-    yaxis=dict(gridcolor="#1a3a55", showgrid=True, zeroline=False),
     legend=dict(bgcolor="#0d1821", bordercolor="#1a3a55", borderwidth=1,
                 font=dict(size=11)),
     hovermode="x unified",
     margin=dict(l=12, r=12, t=36, b=12),
 )
+
+AXIS_STYLE = dict(gridcolor="#1a3a55", showgrid=True, zeroline=False)
+XAXIS_STYLE = dict(gridcolor="#1a3a55", showgrid=True, zeroline=False,
+                   rangeslider_visible=False)
 
 KR_COLORS = ["#00ff88","#00e07a","#00c06a","#00a05a","#00805a",
              "#00604a","#00403a","#00202a"]
@@ -484,9 +485,10 @@ if chart_type == "수익률 비교 (정규화)":
     fig.update_layout(
         **PLOTLY_LAYOUT,
         title=dict(text=f"수익률 비교 (기준=0%, {period_label})", font=dict(size=14, color="#00ff88")),
-        yaxis=dict(**PLOTLY_LAYOUT["yaxis"], ticksuffix="%"),
         height=480,
     )
+    fig.update_xaxes(**XAXIS_STYLE)
+    fig.update_yaxes(**AXIS_STYLE, ticksuffix="%")
     st.markdown('<div class="chart-wrap">', unsafe_allow_html=True)
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("</div>", unsafe_allow_html=True)
@@ -527,6 +529,7 @@ elif chart_type == "가격 추이":
         title=dict(text=f"가격 추이 ({period_label}) | 🇰🇷 좌축(₩)  🇺🇸 우축($)", font=dict(size=14, color="#00c4ff")),
         height=480,
     )
+    fig.update_xaxes(**XAXIS_STYLE)
     fig.update_yaxes(title_text="KRW (₩)", secondary_y=False,
                      gridcolor="#1a3a55", showgrid=True, zeroline=False)
     fig.update_yaxes(title_text="USD ($)", secondary_y=True,
@@ -590,8 +593,10 @@ elif chart_type == "캔들차트 (단일 종목)":
             **PLOTLY_LAYOUT,
             title=dict(text=f"{candle_target} ({ticker}) 캔들차트 — {period_label}", font=dict(size=14, color=color)),
             height=520,
-            xaxis_rangeslider_visible=False,
         )
+        fig.update_xaxes(gridcolor="#1a3a55", showgrid=True, zeroline=False,
+                         rangeslider_visible=False)
+        fig.update_yaxes(gridcolor="#1a3a55", showgrid=True, zeroline=False)
         st.markdown('<div class="chart-wrap">', unsafe_allow_html=True)
         st.plotly_chart(fig, use_container_width=True)
         st.markdown("</div>", unsafe_allow_html=True)
@@ -686,9 +691,11 @@ if len(price_data) >= 2:
             **PLOTLY_LAYOUT,
             title=dict(text="일별 수익률 상관계수", font=dict(size=14, color="#00c4ff")),
             height=max(320, 60 * len(labels)),
-            xaxis=dict(side="bottom", tickfont=dict(size=10)),
-            yaxis=dict(autorange="reversed", tickfont=dict(size=10)),
         )
+        fig_corr.update_xaxes(side="bottom", tickfont=dict(size=10),
+                              gridcolor="#1a3a55", showgrid=False, zeroline=False)
+        fig_corr.update_yaxes(autorange="reversed", tickfont=dict(size=10),
+                              gridcolor="#1a3a55", showgrid=False, zeroline=False)
         st.markdown('<div class="chart-wrap">', unsafe_allow_html=True)
         st.plotly_chart(fig_corr, use_container_width=True)
         st.markdown("</div>", unsafe_allow_html=True)
